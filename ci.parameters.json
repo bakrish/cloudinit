@@ -3,13 +3,13 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "adminUsername": {
-      "value": "GEN-UNIQUE"
+      "value": "bala"
     },
     "adminPasswordOrKey": {
-      "value": "GEN-PASSWORD"
+      "value": "Password-1"
     },
     "dnsLabelPrefix": {
-      "value": "GEN-UNIQUE"
+      "value": "cilinuxvm1"
     }
   }
 }
