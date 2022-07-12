@@ -43,7 +43,7 @@ param subnetName string = 'Subnet'
 param networkSecurityGroupName string = 'SecGroupNet'
 
 @description('location of script file')
-param scriptLocation string = 'foobar.sh'
+param scriptLocation string = 'https://raw.githubusercontent.com/bakrish/cloudinit/main/foobar.sh'
 
 @description('name of script file')
 param scriptName string = 'foobar.sh'
