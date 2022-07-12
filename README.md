@@ -10,3 +10,11 @@ The script accepts 4 parameters
 Cloud-init gets initialized by way of passing a script into the CustomData property.
 
     var customScript = '#!/bin/sh \n echo Running cloud-init...\n wget ${scriptLocation} -O ${scriptName} \n sh ${scriptName} ${virtualNetworkName} \n\n'
+    ...
+    osProfile: {
+      computerName: vmName
+      adminUsername: adminUsername
+      adminPassword: adminPublicKey
+      linuxConfiguration: linuxConfiguration
+      customData: base64(customScript)
+    }
