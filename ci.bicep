@@ -4,28 +4,12 @@ param vmName string = 'simpleLinuxVM'
 @description('Username for the Virtual Machine.')
 param adminUsername string
 
-@description('Type of authentication to use on the Virtual Machine. SSH key is recommended.')
-@allowed([
-  'sshPublicKey'
-  'password'
-])
-param authenticationType string = 'password'
-
-@description('SSH Key or password for the Virtual Machine. SSH key is recommended.')
+@description('SSH Key for the Virtual Machine.')
 @secure()
-param adminPasswordOrKey string
+param adminPublicKey string
 
 @description('Unique DNS Name for the Public IP used to access the Virtual Machine.')
 param dnsLabelPrefix string = toLower('${vmName}-${uniqueString(resourceGroup().id)}')
-
-@description('The Ubuntu version for the VM. This will pick a fully patched image of this given Ubuntu version.')
-@allowed([
-  '12.04.5-LTS'
-  '14.04.5-LTS'
-  '16.04.0-LTS'
-  '18.04-LTS'
-])
-param ubuntuOSVersion string = '18.04-LTS'
 
 @description('Location for all resources.')
 param location string = resourceGroup().location
@@ -46,12 +30,10 @@ param networkSecurityGroupName string = 'SecGroupNet'
 param scriptLocation string = 'https://raw.githubusercontent.com/bakrish/cloudinit/main/foobar.sh'
 
 @description('name of script file')
-param scriptName string = 'foobar.sh'
+param scriptName string = '/tmp/foobar.sh'
 
+var customScript = '#!/bin/sh \n echo Running cloud-init...\n wget ${scriptLocation} -O ${scriptName} \n sh ${scriptName} ${virtualNetworkName} \n\n'
 
-var customScript = ''' 
-wget ${scriptLocation} 
-sh ${scriptName} ${virtualNetworkName} '''
 var publicIPAddressName = '${vmName}PublicIP'
 var networkInterfaceName = '${vmName}NetInt'
 var osDiskType = 'Standard_LRS'
@@ -63,7 +45,7 @@ var linuxConfiguration = {
     publicKeys: [
       {
         path: '/home/${adminUsername}/.ssh/authorized_keys'
-        keyData: adminPasswordOrKey
+        keyData: adminPublicKey
       }
     ]
   }
@@ -170,7 +152,7 @@ resource vm 'Microsoft.Compute/virtualMachines@2021-11-01' = {
       imageReference: {
         publisher: 'Canonical'
         offer: 'UbuntuServer'
-        sku: ubuntuOSVersion
+        sku: '18.04-LTS'
         version: 'latest'
       }
     }
@@ -184,9 +166,9 @@ resource vm 'Microsoft.Compute/virtualMachines@2021-11-01' = {
     osProfile: {
       computerName: vmName
       adminUsername: adminUsername
-      adminPassword: adminPasswordOrKey
-      linuxConfiguration: ((authenticationType == 'password') ? null : linuxConfiguration)
-      customData: base64('''${customScript}''')
+      adminPassword: adminPublicKey
+      linuxConfiguration: linuxConfiguration
+      customData: base64(customScript)
     }
   }
 }

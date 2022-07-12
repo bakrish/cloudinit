@@ -5,11 +5,14 @@
     "adminUsername": {
       "value": "bala"
     },
-    "adminPasswordOrKey": {
-      "value": "Password-1"
+    "adminPublicKey": {
+      "value": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCmvA2p+as4cgI7hD8LW/J+vdCZ22iWkEwrazFW86Nzyxbfo8t59g2sp1HBSV3F/eeKF8c5HkcITXh0LvHcVLjnEbwRqLxvU0huWxWLJDOnVq4QnVqan7+A1eAzE1CB6dsDXvPi/aguB9c3WVtcH/2SDUJWluS4cyfuFci5Q9Wd6aZp7rFUlCeZ5H76W0mlD0GsDnJxceTBrFnz8/xHAoKpiczY1GklupAUYHolfeUdJSTfGWwb8eaUnZY+GC18fxB6GlYRzAika+Zg1ET8H5d4TYwnCBzEyKMqxTDxcl5y/ldfX8NI8VtCu08Eg/UyBV17GH8sk2Fbn4nYxsP+ZQj5woXDP4nd+Fp7IIkb9ML4EvqsxU5oEx3lXcQ279f+Q/RAyCd8QbeSt/v4k+8xgrR6Fsn7VTqx95XQKcOjXcUfIATensY3077G1Mun5yGs7GxVDT2TKM2B9VPeeMjcuOwdN0Qx2ssXo2e2bBKVfF0Pr/VQHER/k+oZjD+6R6L33Dc= bala@grayswandir"
     },
-    "dnsLabelPrefix": {
-      "value": "cilinuxvm1"
+    "scriptName": {
+      "value": "/tmp/foobar.sh"
+    },
+    "scriptLocation": {
+      "value": "https://raw.githubusercontent.com/bakrish/cloudinit/main/foobar.sh"
     }
   }
 }
